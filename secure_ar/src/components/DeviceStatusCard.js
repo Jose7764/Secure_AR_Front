@@ -5,7 +5,7 @@ import StatusDot from "./ui/StatusDot";
 import CollapsibleCard from "./ui/CollapsibleCard";
 import { mockDevice, mdmStatusConfig } from "@/data/mockDevice";
 
-export default function DeviceStatusCard() {
+export default function DeviceStatusCard({ onClose }) {
   const cfg = mdmStatusConfig[mockDevice.mdmStatus];
   const mdmVariant =
     mockDevice.mdmStatus === "homologado" ? "success" :
@@ -17,6 +17,7 @@ export default function DeviceStatusCard() {
       icon="🥽"
       headerRight={<Badge variant={mdmVariant} dot className="ml-1">{cfg.label}</Badge>}
       accentColor="indigo"
+      onClose={onClose}
       defaultCollapsed
     >
       <div className="space-y-2 pt-1">

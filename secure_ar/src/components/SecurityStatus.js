@@ -11,7 +11,7 @@ const CHECKS = [
   { key: "access",  label: "Acesso Autorizado",       source: "IAM",     icon: "✅" },
 ];
 
-export default function SecurityStatus() {
+export default function SecurityStatus({ onClose }) {
   const { sessionState, deviceValidated } = useSession();
   const auth = sessionState === "authenticated";
 
@@ -39,6 +39,7 @@ export default function SecurityStatus() {
   return (
     <CollapsibleCard
       title="Postura de Segurança"
+      onClose={onClose}
       icon="⚡"
       headerRight={badge}
       accentColor="emerald"

@@ -49,6 +49,7 @@ export function SessionProvider({ children }) {
       setSessionToken(token);
       setSessionExpiry(expiry);
       setSessionState("authenticated");
+      setDeviceValidated(true);
 
       setLogs((prev) => [
         {

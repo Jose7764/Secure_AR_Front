@@ -16,6 +16,7 @@ import ProcessingPipeline from "@/components/ProcessingPipeline";
 import AIResponseCard from "@/components/AIResponseCard";
 import StatusDot from "@/components/ui/StatusDot";
 import Badge from "@/components/ui/Badge";
+import AppDock from "@/components/AppDock";
 
 const STEP_DELAY = 380;
 
@@ -56,12 +57,15 @@ export default function AssistantPage() {
   const chatEndRef = useRef(null);
 
   const [positions, setPositions] = useState(null);
+  const [panels, setPanels]       = useState({ session: true, security: true, device: true, chat: true });
   const [input, setInput]         = useState("");
   const [messages, setMessages]   = useState([]);
   const [processing, setProcessing] = useState(false);
   const [stepStates, setStepStates] = useState([]);
   const [blocked, setBlocked]     = useState(false);
   const [voiceActive, setVoiceActive] = useState(false);
+
+  const togglePanel = (key) => setPanels((p) => ({ ...p, [key]: !p[key] }));
 
   // Calculate initial positions client-side
   useEffect(() => {
@@ -137,7 +141,7 @@ export default function AssistantPage() {
       <VRBackground />
 
       {/* ── Fixed Nav Bar ── */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-slate-900/60 backdrop-blur-md border-b border-slate-700/40 h-14">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-slate-900/90 border-b border-slate-700/40 h-14">
         <div className="h-full px-4 flex items-center justify-between gap-4">
           {/* Brand */}
           <div className="flex items-center gap-3 shrink-0">
@@ -175,25 +179,36 @@ export default function AssistantPage() {
 
       {/* ── Floating Sidebar Cards ── */}
 
-      <DraggablePanel initialX={session.x} initialY={session.y} style={{ width: 272 }}>
-        <SessionCard />
-      </DraggablePanel>
+      {panels.session && (
+        <DraggablePanel initialX={session.x} initialY={session.y} style={{ width: 272 }}>
+          <SessionCard onClose={() => togglePanel("session")} />
+        </DraggablePanel>
+      )}
 
-      <DraggablePanel initialX={security.x} initialY={security.y} style={{ width: 272 }}>
-        <SecurityStatus />
-      </DraggablePanel>
+      {panels.security && (
+        <DraggablePanel initialX={security.x} initialY={security.y} style={{ width: 272 }}>
+          <SecurityStatus onClose={() => togglePanel("security")} />
+        </DraggablePanel>
+      )}
 
-      <DraggablePanel initialX={device.x} initialY={device.y} style={{ width: 272 }}>
-        <DeviceStatusCard />
-      </DraggablePanel>
+      {panels.device && (
+        <DraggablePanel initialX={device.x} initialY={device.y} style={{ width: 272 }}>
+          <DeviceStatusCard onClose={() => togglePanel("device")} />
+        </DraggablePanel>
+      )}
+
+      {/* ── App Dock ── */}
+      <AppDock panels={panels} onToggle={togglePanel} />
 
       {/* ── Floating Chat Panel ── */}
+      {panels.chat && (
       <FloatingPanel
         initialX={chat.x}
         initialY={chat.y}
         initialWidth={chat.w}
         initialHeight={chat.h}
         title="Assistente Corporativo"
+        onClose={() => togglePanel("chat")}
         titleRight={
           <div className="flex items-center gap-2">
             <StatusDot status="active" pulse />
@@ -312,6 +327,7 @@ export default function AssistantPage() {
           </div>
         </div>
       </FloatingPanel>
+      )}
 
     </div>
   );

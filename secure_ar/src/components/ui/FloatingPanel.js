@@ -18,6 +18,7 @@ export default function FloatingPanel({
   children,
   title,
   titleRight,
+  onClose,
   initialX = 20,
   initialY = NAV_H + 10,
   initialWidth = 360,
@@ -141,7 +142,7 @@ export default function FloatingPanel({
         zIndex,
         transition: "height 0.25s ease",
       }}
-      className={`rounded-xl border border-slate-700/40 bg-slate-900/70 backdrop-blur-md ${className}`}
+      className={`rounded-xl border border-slate-700/40 bg-slate-900/92 ${className}`}
     >
       {/* ── Resize handles (only when not minimized) ── */}
       {!minimized && (
@@ -175,22 +176,36 @@ export default function FloatingPanel({
           {titleRight && <span className="shrink-0 ml-2">{titleRight}</span>}
         </div>
 
-        {/* Minimize button */}
-        <button
-          onMouseDown={(e) => e.stopPropagation()}
-          onClick={() => setMinimized((m) => !m)}
-          className="w-7 h-7 flex items-center justify-center rounded-lg text-slate-500 hover:text-slate-300 hover:bg-slate-700/40 transition-all shrink-0 ml-2"
-          aria-label={minimized ? "Expandir" : "Minimizar"}
-        >
-          <svg
-            className={`w-3.5 h-3.5 transition-transform duration-250 ${minimized ? "rotate-180" : ""}`}
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+        <div className="flex items-center gap-1 shrink-0 ml-2">
+          {/* Minimize button */}
+          <button
+            onMouseDown={(e) => e.stopPropagation()}
+            onClick={() => setMinimized((m) => !m)}
+            className="w-7 h-7 flex items-center justify-center rounded-lg text-slate-500 hover:text-slate-300 hover:bg-slate-700/40 transition-all"
+            aria-label={minimized ? "Expandir" : "Minimizar"}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
+            <svg
+              className={`w-3.5 h-3.5 transition-transform duration-250 ${minimized ? "rotate-180" : ""}`}
+              fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          {/* Close button */}
+          {onClose && (
+            <button
+              onMouseDown={(e) => e.stopPropagation()}
+              onClick={onClose}
+              className="w-7 h-7 flex items-center justify-center rounded-lg text-slate-500 hover:text-red-400 hover:bg-red-500/10 transition-all"
+              aria-label="Fechar"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* ── Content (hidden when minimized) ── */}

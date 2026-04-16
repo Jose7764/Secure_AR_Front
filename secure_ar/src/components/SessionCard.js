@@ -13,13 +13,14 @@ function formatExpiry(date) {
   return `${h}h ${m}m restantes`;
 }
 
-export default function SessionCard() {
+export default function SessionCard({ onClose }) {
   const { user, sessionToken, sessionExpiry, sessionState } = useSession();
   const active = sessionState === "authenticated";
 
   return (
     <CollapsibleCard
       title="Sessão"
+      onClose={onClose}
       icon={<StatusDot status={active ? "active" : "inactive"} pulse={active} size="md" />}
       headerRight={
         <span className={`text-xs font-bold ml-1 ${active ? "text-emerald-400" : "text-slate-600"}`}>

@@ -31,7 +31,7 @@ export default function VRBackground() {
       currentY += (targetY - currentY) * 0.06;
       if (bgRef.current) {
         bgRef.current.style.transform =
-          `translate(calc(-50% + ${currentX.toFixed(2)}px), calc(-50% + ${currentY.toFixed(2)}px)) scale(1.07)`;
+          `translate(calc(-50% + ${currentX.toFixed(2)}px), calc(-50% + ${currentY.toFixed(2)}px)) scale(1.02)`;
       }
       rafId = requestAnimationFrame(animate);
     };
@@ -50,7 +50,7 @@ export default function VRBackground() {
       {/* ── Environment layer (imagem real OU cenário CSS) ── */}
       <div
         ref={bgRef}
-        className="absolute top-1/2 left-1/2 w-[110%] h-[110%]"
+        className="absolute top-1/2 left-1/2 w-[104%] h-[104%]"
         style={{
           willChange: "transform",
           /*
@@ -60,55 +60,15 @@ export default function VRBackground() {
            * 5. Reflexo de janela / luz lateral
            * 6. Gradiente de profundidade do ambiente (piso → teto)
            */
-          backgroundImage: [
-            "url('/office-bg.jpg')",
+          backgroundImage: "url('/officie.jpg')",
 
-            // Luminária central (teto)
-            "radial-gradient(ellipse 28% 14% at 50% 2%, rgba(255, 253, 240, 0.96) 0%, rgba(255,253,240,0.4) 40%, transparent 100%)",
-            // Luminária esquerda
-            "radial-gradient(ellipse 16% 9%  at 22% 3%, rgba(255, 253, 240, 0.88) 0%, transparent 100%)",
-            // Luminária direita
-            "radial-gradient(ellipse 16% 9%  at 78% 3%, rgba(255, 253, 240, 0.88) 0%, transparent 100%)",
-
-            // Reflexo de janela lateral direita (luz natural)
-            "radial-gradient(ellipse 18% 60% at 96% 45%, rgba(210, 225, 240, 0.25) 0%, transparent 100%)",
-
-            // Gradiente base do ambiente: teto claro → parede → piso escuro
-            `linear-gradient(180deg,
-              #c5cad3 0%,
-              #b8bec9 18%,
-              #a8aeba 38%,
-              #8d94a5 58%,
-              #6b7282 78%,
-              #4a5060 100%
-            )`,
-          ].join(", "),
-
-          backgroundSize: [
-            "cover",           // foto
-            "100% 100%",       // luminária central
-            "100% 100%",       // luminária esquerda
-            "100% 100%",       // luminária direita
-            "100% 100%",       // janela lateral
-            "100% 100%",       // gradiente base
-          ].join(", "),
+          backgroundSize: "cover",
 
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
       />
 
-      {/* ── Overlay escuro: reduz brilho do ambiente para legibilidade da UI ── */}
-      <div className="absolute inset-0 bg-slate-950/48" />
-
-      {/* ── Vinheta VR: escurece bordas como lentes de óculos ── */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 74% 64% at 50% 50%, transparent 42%, rgba(2, 6, 23, 0.94) 100%)",
-        }}
-      />
 
       {/* ── Reflexo interno de lente (círculo central levemente mais claro) ── */}
       <div

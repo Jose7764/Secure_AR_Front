@@ -6,6 +6,7 @@ import { useSession } from "@/context/SessionContext";
 import { mockDevice, bootSteps, mdmStatusConfig } from "@/data/mockDevice";
 import ProgressBar from "@/components/ui/ProgressBar";
 import Badge from "@/components/ui/Badge";
+import VRBackground from "@/components/VRBackground";
 
 const STEP_DURATION = 700; // ms per step
 
@@ -40,23 +41,18 @@ export default function BootPage() {
   const handleContinue = () => router.push("/auth");
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-6">
-      {/* Scan line effect */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden opacity-20">
-        <div className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent animate-scan" />
-      </div>
+    <div className="min-h-screen bg-transparent flex flex-col items-center justify-center p-6">
+      <VRBackground />
 
-      <div className="w-full max-w-lg space-y-6">
+      <div className="relative z-10 w-full max-w-lg space-y-6">
         {/* Logo / Branding */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-3 mb-2">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500 to-indigo-600 flex items-center justify-center text-2xl shadow-lg shadow-cyan-500/20">
-              🥽
-            </div>
-            <div className="text-left">
-              <h1 className="text-2xl font-bold text-gradient">SecureAR</h1>
-              <p className="text-xs text-slate-500 uppercase tracking-widest">Petrobras — Acesso Corporativo</p>
-            </div>
+        <div className="glass rounded-2xl px-5 py-4 flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-indigo-600 flex items-center justify-center text-xl shadow-lg shadow-cyan-500/20 shrink-0">
+            🥽
+          </div>
+          <div>
+            <h1 className="text-base font-bold text-gradient leading-tight">SecureAR</h1>
+            <p className="text-xs text-slate-500 uppercase tracking-widest">Petrobras — Acesso Corporativo</p>
           </div>
         </div>
 
@@ -146,10 +142,10 @@ export default function BootPage() {
 
         {/* MDM Status */}
         {done && (
-          <div className={`rounded-xl px-4 py-3 border ${cfg.bg} ${cfg.border} animate-fade-in-up`}>
+          <div className="glass rounded-2xl px-4 py-3 animate-fade-in-up">
             <div className="flex items-center gap-2">
               <div className={`w-2.5 h-2.5 rounded-full ${cfg.dot} animate-pulse`} />
-              <span className={`text-sm font-semibold ${cfg.color}`}>
+              <span className="text-sm font-semibold text-slate-200">
                 MDM/UEM — {cfg.label}
               </span>
             </div>
