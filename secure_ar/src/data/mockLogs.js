@@ -1,0 +1,103 @@
+let _logId = 1008;
+export const nextLogId = () => `LOG-${++_logId}`;
+
+export const initialLogs = [
+  {
+    id: "LOG-1001",
+    timestamp: "2024-01-15T08:30:00Z",
+    event: "DEVICE_BOOT",
+    description: "Dispositivo Magic Leap 2 inicializado",
+    status: "success",
+    source: "Sistema",
+    user: null,
+  },
+  {
+    id: "LOG-1002",
+    timestamp: "2024-01-15T08:30:04Z",
+    event: "MDM_CHECK",
+    description: "Verificação MDM/UEM concluída — status: HOMOLOGADO",
+    status: "success",
+    source: "MDM/UEM",
+    user: null,
+  },
+  {
+    id: "LOG-1003",
+    timestamp: "2024-01-15T08:30:08Z",
+    event: "CERT_VALIDATION",
+    description: "Certificado do dispositivo validado (Petrobras Internal CA)",
+    status: "success",
+    source: "PKI",
+    user: null,
+  },
+  {
+    id: "LOG-1004",
+    timestamp: "2024-01-15T08:30:12Z",
+    event: "MTLS_ESTABLISHED",
+    description: "Canal mTLS estabelecido com API Gateway — TLS 1.3",
+    status: "success",
+    source: "API Gateway",
+    user: null,
+  },
+  {
+    id: "LOG-1005",
+    timestamp: "2024-01-15T08:31:00Z",
+    event: "AUTH_ATTEMPT",
+    description: "Tentativa de autenticação iniciada por c.mendes",
+    status: "info",
+    source: "Identity Service",
+    user: "c.mendes",
+  },
+  {
+    id: "LOG-1006",
+    timestamp: "2024-01-15T08:31:06Z",
+    event: "BIOMETRIC_OK",
+    description: "Validação biométrica concluída com sucesso",
+    status: "success",
+    source: "Biometric Engine",
+    user: "c.mendes",
+  },
+  {
+    id: "LOG-1007",
+    timestamp: "2024-01-15T08:31:10Z",
+    event: "MFA_OK",
+    description: "MFA/TOTP validado com sucesso",
+    status: "success",
+    source: "Identity Service",
+    user: "c.mendes",
+  },
+  {
+    id: "LOG-1008",
+    timestamp: "2024-01-15T08:31:11Z",
+    event: "SESSION_CREATED",
+    description: "Sessão JWT criada — válida por 4 horas",
+    status: "success",
+    source: "Auth Service",
+    user: "c.mendes",
+  },
+];
+
+export const LOG_STATUS_LABELS = {
+  success: { label: "Sucesso",    color: "text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/20" },
+  info:    { label: "Info",       color: "text-cyan-400",    bg: "bg-cyan-500/10",    border: "border-cyan-500/20" },
+  warning: { label: "Aviso",      color: "text-yellow-400",  bg: "bg-yellow-500/10",  border: "border-yellow-500/20" },
+  error:   { label: "Erro",       color: "text-red-400",     bg: "bg-red-500/10",     border: "border-red-500/20" },
+};
+
+export const LOG_EVENT_LABELS = {
+  DEVICE_BOOT:       "Boot do Dispositivo",
+  MDM_CHECK:         "Verificação MDM/UEM",
+  CERT_VALIDATION:   "Validação de Certificado",
+  MTLS_ESTABLISHED:  "mTLS Estabelecido",
+  AUTH_ATTEMPT:      "Tentativa de Login",
+  BIOMETRIC_OK:      "Biometria Validada",
+  MFA_OK:            "MFA Validado",
+  SESSION_CREATED:   "Sessão Criada",
+  SESSION_LOCKED:    "Sessão Bloqueada",
+  SESSION_UNLOCKED:  "Sessão Desbloqueada",
+  SESSION_TERMINATED:"Sessão Encerrada",
+  QUERY_SENT:        "Consulta Enviada",
+  DLP_BLOCKED:       "Bloqueio DLP",
+  AI_RESPONSE:       "Resposta IA",
+  ACCESS_GRANTED:    "Acesso Autorizado",
+  ACCESS_DENIED:     "Acesso Negado",
+};
