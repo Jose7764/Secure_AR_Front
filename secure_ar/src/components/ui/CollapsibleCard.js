@@ -36,13 +36,18 @@ export default function CollapsibleCard({
       {/* ── HUD corner brackets ── */}
       <HudCorners color={accentColor} />
 
-      {/* ── Header / toggle ── */}
+      {/* ── Header / toggle + drag handle ── */}
       <button
+        data-drag-handle="true"
         onClick={() => setCollapsed((c) => !c)}
-        className="w-full flex items-center justify-between px-4 py-3 hover:bg-white/[0.03] transition-colors group"
+        className="w-full flex items-center justify-between px-4 py-3 hover:bg-white/[0.03] transition-colors group cursor-grab active:cursor-grabbing select-none"
         aria-expanded={!collapsed}
       >
-        <div className="flex items-center gap-2.5 min-w-0">
+        <div className="flex items-center gap-2 min-w-0">
+          {/* Drag indicator dots */}
+          <span className="text-slate-600 text-xs leading-none select-none shrink-0" style={{ letterSpacing: "-1px" }}>
+            ⠿
+          </span>
           {icon && (
             <span className="text-lg shrink-0 select-none">{icon}</span>
           )}
